@@ -746,8 +746,11 @@ body{background:var(--bg);color:var(--text);font-family:'Space Grotesk',sans-ser
 <script>
 // ── CONFIG ──────────────────────────────────────────────────────────────────
 let cfg = {
-  anthropic: '', n8nWebhook: '', ttsWebhook: '',
-  openai: '', voiceId: '21m00Tcm4TlvDq8ikWAM'
+  anthropic: '', 
+  n8nWebhook: 'https://cjnf.app.n8n.cloud/webhook/e5d04b1b-b5f9-4c58-bbc4-f11f65192d4d', 
+  ttsWebhook: '',
+  openai: '', 
+  voiceId: '21m00Tcm4TlvDq8ikWAM'
 };
 try { const s = localStorage.getItem('cmdCenterCfg'); if(s) cfg = {...cfg,...JSON.parse(s)}; } catch(e){}
 
