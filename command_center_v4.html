@@ -299,6 +299,19 @@ async function speak(text){
     const audio=new Audio(URL.createObjectURL(blob));
     audio.play();
   }catch(e){console.log('TTS error:',e);}
+}async function sendCommand(){
+  if(!window._audioUnlocked){
+    const ctx=new AudioContext();
+    ctx.resume();
+    window._audioUnlocked=true;
+  }
+  const input=document.getElementById('cmdInput');
+  const cmd=input.value.trim();
+  if(!cmd)return;
+  addMessage('you','You',cmd,'Command');
+  input.value='';
+  input.style.height='auto';
+  await processCommand(cmd);
 }
 async function processCommand(cmd){
   addTyping();
@@ -325,7 +338,7 @@ async function processCommand(cmd){
   document.getElementById('sendBtn').disabled=false;
 }
 function addActivity(text){const p=document.querySelector('.right-panel .panel-section:nth-child(3)');const f=p?.querySelector('.activity-item');if(!f)return;const d=document.createElement('div');d.className='activity-item';d.innerHTML=`<span class="activity-time">${now()}</span><span class="activity-text">${text}</span>`;f.parentNode.insertBefore(d,f);}
-async function sendCommand(){const input=document.getElementById('cmdInput');const cmd=input.value.trim();if(!cmd)return;addMessage('you','You',cmd,'Command');input.value='';input.style.height='auto';await processCommand(cmd);}
+
 function handleKey(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendCommand();}}
 function setCmd(text){const i=document.getElementById('cmdInput');i.value=text;i.focus();}
 function autoResize(el){el.style.height='auto';el.style.height=Math.min(el.scrollHeight,120)+'px';}
