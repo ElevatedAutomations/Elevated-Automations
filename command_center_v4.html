@@ -273,6 +273,19 @@ body{background:var(--bg);color:var(--text);font-family:'Space Grotesk',sans-ser
   </div>
 </div>
 <script>
+  async function speak(text){
+  try {
+    const res = await fetch(cfg.ttsWebhook, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({text: text.substring(0,500)})
+    });
+    if(!res.ok) return;
+    const blob = await res.blob();
+    const audio = new Audio(URL.createObjectURL(blob));
+    audio.play();
+  } catch(e) { console.log('TTS error:', e); }
+}
 let cfg={anthropic:'',n8nWebhook:'https://cjnf.app.n8n.cloud/webhook/e5d04b1b-b5f9-4c58-bbc4-f11f65192d4d',ttsWebhook:'',openai:'',voiceId:'21m00Tcm4TlvDq8ikWAM'};
 try{const s=localStorage.getItem('cmdCenterCfg');if(s)cfg={...cfg,...JSON.parse(s)};}catch(e){}
 function updateClock(){const n=new Date();document.getElementById('clock').textContent=n.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false});}
@@ -309,7 +322,7 @@ async function processCommand(cmd){
       reply=data.content[0].text;
     }
     removeTyping();
-    addMessage('cmd','Command Center',reply.replace(/\n/g,'<br>').replace(/\[([^\]]+)\]/g,'<span style="color:var(--accent);font-family:\'JetBrains Mono\',monospace;font-size:0.8rem;">[$1]</span>'),'Dispatch');
+    addMessage('cmd','Command Center',reply.replace...if(cfg.ttsWebhook){ speak(reply.replace(/<[^>]*>/g,'')); }(/\n/g,'<br>').replace(/\[([^\]]+)\]/g,'<span style="color:var(--accent);font-family:\'JetBrains Mono\',monospace;font-size:0.8rem;">[$1]</span>'),'Dispatch');
     addActivity(`Command: "${cmd.substring(0,40)}${cmd.length>40?'...':''}"`)
   }catch(err){removeTyping();addMessage('cmd','Command Center',`Connection error: ${err.message}`,'Error');}
   document.getElementById('sendBtn').disabled=false;
