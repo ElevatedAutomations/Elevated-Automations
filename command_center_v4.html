@@ -337,6 +337,7 @@ async function processCommand(cmd){
     removeTyping();
     addMessage('cmd','Command Center',reply.replace...if(cfg.ttsWebhook){ speak(reply.replace(/<[^>]*>/g,'')); }(/\n/g,'<br>').replace(/\[([^\]]+)\]/g,'<span style="color:var(--accent);font-family:\'JetBrains Mono\',monospace;font-size:0.8rem;">[$1]</span>'),'Dispatch');
   if(cfg.ttsWebhook){ speak(reply.replace(/<[^>]*>/g,'')); }
+  if(cfg.ttsWebhook){ speak(reply.replace(/<[^>]*>/g,'')); }
     addActivity(`Command: "${cmd.substring(0,40)}${cmd.length>40?'...':''}"`)
   }catch(err){removeTyping();addMessage('cmd','Command Center',`Connection error: ${err.message}`,'Error');}
   document.getElementById('sendBtn').disabled=false;
