@@ -316,7 +316,12 @@ async function speak(text){
 async function processCommand(cmd){
   addTyping();
   document.getElementById('sendBtn').disabled=true;
-  try{
+  try{document.addEventListener('click', function unlock(){
+  const ctx = new (window.AudioContext||window.webkitAudioContext)();
+  ctx.resume();
+  window._audioUnlocked = true;
+  document.removeEventListener('click', unlock);
+}, {once: true});
     if(!cfg.anthropic){removeTyping();addMessage('cmd','Command Center','No Anthropic API key. Click <strong>Configure</strong> to add your keys, General.','System');document.getElementById('sendBtn').disabled=false;return;}
     let reply;
     if(cfg.n8nWebhook){
@@ -347,7 +352,7 @@ let mediaRecorder,audioChunks=[],isRecording=false,stream;
 async function toggleVoice(){if(isRecording){stopVoice();return;}try{stream=await navigator.mediaDevices.getUserMedia({audio:true});mediaRecorder=new MediaRecorder(stream);audioChunks=[];mediaRecorder.ondataavailable=e=>audioChunks.push(e.data);mediaRecorder.onstop=handleVoiceEnd;mediaRecorder.start();isRecording=true;document.getElementById('micBtn').classList.add('recording');document.getElementById('voiceTopBtn').classList.add('recording');addMessage('cmd','Command Center','Listening... click mic again to send.','Voice');}catch(err){addMessage('cmd','Command Center','Mic access denied.','Error');}}
 function stopVoice(){if(!isRecording)return;isRecording=false;document.getElementById('micBtn').classList.remove('recording');document.getElementById('voiceTopBtn').classList.remove('recording');if(mediaRecorder&&mediaRecorder.state!=='inactive')mediaRecorder.stop();if(stream)stream.getTracks().forEach(t=>t.stop());}
 async function handleVoiceEnd(){if(!cfg.openai){addMessage('cmd','Command Center','No OpenAI key for transcription.','Error');return;}addTyping();try{const blob=new Blob(audioChunks,{type:'audio/webm'});const form=new FormData();form.append('file',blob,'audio.webm');form.append('model','whisper-1');const res=await fetch('https://api.openai.com/v1/audio/transcriptions',{method:'POST',headers:{'Authorization':`Bearer ${cfg.openai}`},body:form});const data=await res.json();removeTyping();if(data.text){document.getElementById('cmdInput').value=data.text;await sendCommand();}}catch(err){removeTyping();addMessage('cmd','Command Center','Transcription failed: '+err.message,'Error');}}
-if(!cfg.anthropic)setTimeout(openSettings,600);
+document.addEventListener('click',function unlock(){new(window.AudioContext||window.webkitAudioContext)().resume();document.removeEventListener('click',unlock);},{once:true});if(!cfg.anthropic)setTimeout(openSettings,600);
 </script>
 </body>
 </html>
