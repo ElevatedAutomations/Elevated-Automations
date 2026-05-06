@@ -235,7 +235,7 @@ body{background:var(--bg);color:var(--text);font-family:'Space Grotesk',sans-ser
     <div class="panel-section">
       <div class="panel-title"><span>Active pipelines</span><span style="color:var(--accent);font-size:0.65rem;">3</span></div>
       <div class="pipeline-item"><div class="pipeline-header"><span class="pipeline-name">Lead Gen Pipeline</span><span class="pipeline-badge pb-live">Live</span></div><div class="pipeline-meta">Next run: 8:00 AM tomorrow</div><div class="progress-bar"><div class="progress-fill" style="width:75%"></div></div></div>
-      <div class="pipeline-item"><div class="pipeline-header"><span class="pipeline-name">Voice Agent</span><span class="pipeline-badge pb-live">Live</span></div><div class="pipeline-meta">ElevenLabs proxy pending</div><div class="progress-bar"><div class="progress-fill" style="width:60%"></div></div></div>
+      <div class="pipeline-item"><div class="pipeline-header"><span class="pipeline-name">Voice Agent</span><span class="pipeline-badge pb-live">Live</span></div><div class="pipeline-meta">ElevenLabs live</div><div class="progress-bar"><div class="progress-fill" style="width:80%"></div></div></div>
       <div class="pipeline-item"><div class="pipeline-header"><span class="pipeline-name">Email Sequences</span><span class="pipeline-badge pb-building">Building</span></div><div class="pipeline-meta">Phase 2 — not started</div><div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div></div>
     </div>
     <div class="sidebar-divider"></div>
@@ -273,33 +273,7 @@ body{background:var(--bg);color:var(--text);font-family:'Space Grotesk',sans-ser
   </div>
 </div>
 <script>
-  async function speak(text){
-  try {
-    const res = await fetch(cfg.ttsWebhook, {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({text: text.substring(0,500)})
-    });
-    if(!res.ok) return;
-    const blob = await res.blob();
-    const audio = new Audio(URL.createObjectURL(blob));
-    audio.play();
-  } catch(e) { console.log('TTS error:', e); }
-}
-  async function speak(text){
-  try {
-    const res = await fetch(cfg.ttsWebhook, {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({text: text.substring(0,500)})
-    });
-    if(!res.ok) return;
-    const blob = await res.blob();
-    const audio = new Audio(URL.createObjectURL(blob));
-    audio.play();
-  } catch(e) { console.log('TTS error:', e); }
-}
-let cfg={anthropic:'',n8nWebhook:'https://cjnf.app.n8n.cloud/webhook/e5d04b1b-b5f9-4c58-bbc4-f11f65192d4d',ttsWebhook:'',openai:'',voiceId:'21m00Tcm4TlvDq8ikWAM'};
+let cfg={anthropic:'',n8nWebhook:'https://cjnf.app.n8n.cloud/webhook/e5d04b1b-b5f9-4c58-bbc4-f11f65192d4d',ttsWebhook:'https://cjnf.app.n8n.cloud/webhook/3259a034-cb48-4807-8592-9bd574262b1c',openai:'',voiceId:'21m00Tcm4TlvDq8ikWAM'};
 try{const s=localStorage.getItem('cmdCenterCfg');if(s)cfg={...cfg,...JSON.parse(s)};}catch(e){}
 function updateClock(){const n=new Date();document.getElementById('clock').textContent=n.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false});}
 setInterval(updateClock,1000);updateClock();
@@ -317,6 +291,15 @@ OPS SQUAD: Lead Finder (Apollo/Clay/Hunter), Scorer (0-100 qualification), Copyw
 OUTREACH SQUAD: Email Agent (Instantly/Smartlead), LinkedIn Agent (Phantombuster), Voice Agent (ElevenLabs), Scheduler (Cal.com)
 SUPPORT SQUAD: Watchdog (monitors agents), Reporter (daily digests), Optimizer (A/B tests), Ad Agent (Meta/Google)
 Respond in direct military-ops style. Use [DISPATCHING: AgentName → task] format. Under 150 words. The user is Jenale. She is the General.`;
+async function speak(text){
+  try{
+    const res=await fetch(cfg.ttsWebhook,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({text:text.substring(0,500)})});
+    if(!res.ok)return;
+    const blob=await res.blob();
+    const audio=new Audio(URL.createObjectURL(blob));
+    audio.play();
+  }catch(e){console.log('TTS error:',e);}
+}
 async function processCommand(cmd){
   addTyping();
   document.getElementById('sendBtn').disabled=true;
@@ -335,9 +318,8 @@ async function processCommand(cmd){
       reply=data.content[0].text;
     }
     removeTyping();
-    addMessage('cmd','Command Center',reply.replace...if(cfg.ttsWebhook){ speak(reply.replace(/<[^>]*>/g,'')); }(/\n/g,'<br>').replace(/\[([^\]]+)\]/g,'<span style="color:var(--accent);font-family:\'JetBrains Mono\',monospace;font-size:0.8rem;">[$1]</span>'),'Dispatch');
-  if(cfg.ttsWebhook){ speak(reply.replace(/<[^>]*>/g,'')); }
-  if(cfg.ttsWebhook){ speak(reply.replace(/<[^>]*>/g,'')); }
+    addMessage('cmd','Command Center',reply.replace(/\n/g,'<br>').replace(/\[([^\]]+)\]/g,'<span style="color:var(--accent);font-family:\'JetBrains Mono\',monospace;font-size:0.8rem;">[$1]</span>'),'Dispatch');
+    if(cfg.ttsWebhook){speak(reply.replace(/<[^>]*>/g,''));}
     addActivity(`Command: "${cmd.substring(0,40)}${cmd.length>40?'...':''}"`)
   }catch(err){removeTyping();addMessage('cmd','Command Center',`Connection error: ${err.message}`,'Error');}
   document.getElementById('sendBtn').disabled=false;
