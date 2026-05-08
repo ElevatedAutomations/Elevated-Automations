@@ -440,14 +440,14 @@ footer{padding:36px 48px;border-top:1px solid var(--border);display:flex;align-i
         <div class="su-feat"><div class="su-dot"></div>Real humans behind the tech</div>
       </div>
     </div>
-    <div class="su-form reveal">
-      <div class="form-hd">Initialize deployment</div>
+    <form class="su-form reveal" action="https://formspree.io/f/mojrkegb" method="POST">
+      <div class="form-hd">Book your strategy call</div>
       <div class="form-fs">
-        <div class="form-f"><label class="form-lbl">Full Name</label><input type="text" class="form-inp" placeholder="Your name"/></div>
-        <div class="form-f"><label class="form-lbl">Business Email</label><input type="email" class="form-inp" placeholder="you@company.com"/></div>
-        <div class="form-f"><label class="form-lbl">Business Name</label><input type="text" class="form-inp" placeholder="Your company"/></div>
-        <div class="form-f"><label class="form-lbl">Select Plan</label><select class="form-sel form-inp"><option>Starter — $497/mo</option><option>Growth — $997/mo</option><option>Agency — $2,497/mo</option></select></div>
-        <button class="form-sub" id="subBtn">Book a Free Strategy Call →</button>
+        <div class="form-f"><label class="form-lbl">Full Name</label><input type="text" name="name" class="form-inp" name="name" placeholder="Your name" required required/></div>
+        <div class="form-f"><label class="form-lbl">Business Email</label><input type="email" name="email" class="form-inp" name="email" placeholder="you@company.com" required required/></div>
+        <div class="form-f"><label class="form-lbl">Business Name</label><input type="text" name="company" class="form-inp" name="company" placeholder="Your company"/></div>
+        <div class="form-f"><label class="form-lbl">Select Plan</label><select name="plan" class="form-sel form-inp"><option>Starter — $497/mo</option><option>Growth — $997/mo</option><option>Agency — $2,497/mo</option></select></div>
+        <button type="submit" class="form-sub">Book a Free Strategy Call →</button>
       </div>
     </div>
   </div>
@@ -472,7 +472,7 @@ document.querySelectorAll('a,button,.svc-card,.price-card,.pstep').forEach(el=>{
 const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible');});},{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
 document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 document.querySelectorAll('.svc-card,.price-card').forEach((el,i)=>{el.style.transitionDelay=i*0.07+'s';el.classList.add('reveal');obs.observe(el);});
-document.getElementById('subBtn').addEventListener('click',function(){this.textContent='✓ Received — deploying in 24hrs';this.style.background='transparent';this.style.color='var(--y)';this.style.border='1px solid var(--border2)';});
+
 </script>
 </body>
 </html>
