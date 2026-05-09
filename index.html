@@ -22,8 +22,6 @@
 }
 html{scroll-behavior:smooth;}
 body{background:var(--bg);color:var(--text);font-family:'Raleway',sans-serif;font-weight:300;overflow-x:hidden;cursor:none;}
-
-/* SCANLINES */
 body::after{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(255,214,0,0.012) 2px,rgba(255,214,0,0.012) 4px);pointer-events:none;z-index:9997;}
 
 /* CURSOR */
@@ -42,6 +40,8 @@ nav::before{content:'';position:absolute;inset:0;background:rgba(6,6,6,0.9);back
 .nav-links a:hover{color:var(--y);}
 .nav-cta{color:var(--y);font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:3px;text-transform:uppercase;padding:10px 22px;border:1px solid var(--border2);cursor:none;text-decoration:none;transition:all 0.2s;background:rgba(255,214,0,0.04);}
 .nav-cta:hover{background:rgba(255,214,0,0.1);box-shadow:0 0 20px rgba(255,214,0,0.15);}
+.nav-ham{display:none;flex-direction:column;gap:5px;background:none;border:none;padding:4px;position:relative;z-index:2;cursor:pointer;}
+.nav-ham span{display:block;width:22px;height:1px;background:var(--y);transition:all 0.3s;}
 
 /* HERO */
 #home{min-height:100vh;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;padding:120px 48px 80px;position:relative;overflow:hidden;}
@@ -59,7 +59,6 @@ nav::before{content:'';position:absolute;inset:0;background:rgba(6,6,6,0.9);back
 .hud-bar{width:100px;height:1px;background:rgba(255,214,0,0.1);margin-left:auto;margin-top:5px;overflow:hidden;}
 .hud-fill{height:100%;background:var(--y);animation:barFill 1.5s ease-out forwards;width:0;}
 @keyframes barFill{to{width:var(--w,80%);}}
-
 .hero-tag{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:5px;text-transform:uppercase;color:var(--y);margin-bottom:24px;opacity:0;animation:fadeUp 0.6s 0.3s forwards;display:flex;align-items:center;gap:12px;}
 .hero-tag::before{content:'';width:28px;height:1px;background:var(--y);}
 .hero-title{margin-bottom:44px;opacity:0;animation:fadeUp 0.7s 0.6s forwards;}
@@ -95,8 +94,8 @@ nav::before{content:'';position:absolute;inset:0;background:rgba(6,6,6,0.9);back
 .svc-card:hover .svc-icon{border-color:var(--y);box-shadow:0 0 14px rgba(255,214,0,0.12);}
 .svc-name{font-family:'Raleway',sans-serif;font-weight:300;font-size:13px;letter-spacing:3px;text-transform:uppercase;color:var(--text);margin-bottom:12px;}
 .svc-desc{font-size:12px;line-height:1.9;color:var(--muted);}
-.svc-tag{margin-top:18px;font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:2px;color:rgba(255,214,0,0.45);display:flex;align-items:center;gap:6px;}
-.svc-tag::before{content:'▸';color:var(--y);}
+.svc-tag{margin-top:18px;font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:2px;color:rgba(255,214,0,0.45);display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
+.svc-tag span::before{content:'▸ ';color:var(--y);}
 
 /* PROCESS */
 #process{background:var(--bg);}
@@ -136,8 +135,8 @@ nav::before{content:'';position:absolute;inset:0;background:rgba(6,6,6,0.9);back
 .plan-mo{font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:3px;color:var(--muted2);margin-bottom:28px;}
 .plan-div{height:1px;background:var(--border);margin-bottom:24px;}
 .plan-feats{display:flex;flex-direction:column;gap:11px;margin-bottom:36px;}
-.plan-feat{display:flex;align-items:center;gap:9px;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:1px;color:var(--muted);}
-.pf-check{color:var(--y);}
+.plan-feat{display:flex;align-items:flex-start;gap:9px;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:1px;color:var(--muted);line-height:1.5;}
+.pf-check{color:var(--y);flex-shrink:0;}
 .plan-btn{width:100%;padding:12px;font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:4px;text-transform:uppercase;cursor:none;transition:all 0.2s;border:1px solid var(--border2);background:transparent;color:var(--y);text-decoration:none;display:block;text-align:center;}
 .plan-btn:hover{background:rgba(255,214,0,0.06);box-shadow:0 0 16px rgba(255,214,0,0.1);}
 .price-card.feat .plan-btn{background:var(--y);color:var(--bg);border-color:var(--y);}
@@ -156,12 +155,12 @@ nav::before{content:'';position:absolute;inset:0;background:rgba(6,6,6,0.9);back
 .form-fs{display:flex;flex-direction:column;gap:14px;}
 .form-f{display:flex;flex-direction:column;gap:5px;}
 .form-lbl{font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--muted2);}
-.form-inp{background:var(--surface2);border:1px solid rgba(245,240,232,0.07);padding:11px 13px;color:var(--text);font-family:'JetBrains Mono',monospace;font-size:11px;outline:none;transition:border-color 0.2s;}
+.form-inp{background:var(--surface2);border:1px solid rgba(245,240,232,0.07);padding:11px 13px;color:var(--text);font-family:'JetBrains Mono',monospace;font-size:11px;outline:none;transition:border-color 0.2s;width:100%;}
 .form-inp:focus{border-color:var(--border2);}
 .form-inp::placeholder{color:var(--muted2);}
-.form-sel{background:var(--surface2);border:1px solid rgba(245,240,232,0.07);padding:11px 13px;color:var(--text);font-family:'JetBrains Mono',monospace;font-size:11px;outline:none;appearance:none;cursor:none;}
+.form-sel{background:var(--surface2);border:1px solid rgba(245,240,232,0.07);padding:11px 13px;color:var(--text);font-family:'JetBrains Mono',monospace;font-size:11px;outline:none;appearance:none;width:100%;}
 .form-sel option{background:var(--surface);}
-.form-sub{width:100%;background:var(--y);color:var(--bg);font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:4px;text-transform:uppercase;padding:13px;border:none;cursor:none;margin-top:6px;transition:box-shadow 0.2s;}
+.form-sub{width:100%;background:var(--y);color:var(--bg);font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:4px;text-transform:uppercase;padding:13px;border:none;cursor:pointer;margin-top:6px;transition:box-shadow 0.2s;}
 .form-sub:hover{box-shadow:0 0 24px rgba(255,214,0,0.4);}
 
 /* FOOTER */
@@ -175,6 +174,120 @@ footer{padding:36px 48px;border-top:1px solid var(--border);display:flex;align-i
 /* REVEAL */
 .reveal{opacity:0;transform:translateY(18px);transition:opacity 0.7s ease,transform 0.7s ease;}
 .reveal.visible{opacity:1;transform:translateY(0);}
+
+/* ══════════════════════════════════════
+   MOBILE RESPONSIVE
+══════════════════════════════════════ */
+@media(max-width:768px){
+
+  /* Cursor off on touch */
+  .cursor,.cursor-ring{display:none;}
+  body{cursor:auto;}
+  a,button{cursor:pointer;}
+  .btn-y,.btn-ghost,.nav-cta,.plan-btn,.form-sub{cursor:pointer;}
+
+  /* NAV */
+  nav{padding:14px 20px;}
+  .nav-ham{display:flex;}
+  .nav-links{
+    display:none;
+    flex-direction:column;
+    gap:0;
+    position:absolute;
+    top:100%;left:0;right:0;
+    background:rgba(6,6,6,0.97);
+    backdrop-filter:blur(24px);
+    border-bottom:1px solid var(--border);
+    padding:8px 0 16px;
+    z-index:1;
+  }
+  .nav-links.open{display:flex;}
+  .nav-links a{
+    padding:14px 24px;
+    font-size:10px;
+    border-bottom:1px solid var(--border);
+    color:var(--muted);
+  }
+  .nav-cta{
+    margin:12px 20px 0;
+    text-align:center;
+    padding:12px;
+    font-size:9px;
+  }
+
+  /* HERO */
+  #home{padding:90px 20px 90px;min-height:100vh;justify-content:flex-start;padding-top:100px;}
+  .hero-corner-ring{display:none;}
+  .hero-hud{
+    position:relative;
+    right:auto;top:auto;
+    transform:none;
+    flex-direction:row;
+    justify-content:space-between;
+    width:100%;
+    margin-bottom:28px;
+    padding:14px 16px;
+    background:rgba(255,214,0,0.03);
+    border:1px solid var(--border);
+    order:-1;
+    gap:0;
+  }
+  .hud-row{text-align:center;flex:1;}
+  .hud-val{font-size:18px;}
+  .hud-lbl{font-size:7px;letter-spacing:1px;}
+  .hud-bar{width:40px;margin:4px auto 0;}
+  .hero-tag{font-size:7px;letter-spacing:2px;margin-bottom:16px;}
+  .hero-title{margin-bottom:28px;}
+  .hero-title svg{width:100%;height:auto;max-width:320px;}
+  .hero-desc{font-size:13px;line-height:1.8;max-width:100%;margin-bottom:32px;}
+  .hero-btns{flex-direction:column;gap:10px;width:100%;}
+  .btn-y,.btn-ghost{text-align:center;padding:14px 20px;font-size:9px;width:100%;}
+  .status-strip{padding:10px 16px;gap:10px;flex-wrap:wrap;position:relative;}
+  .s-item{font-size:7px;letter-spacing:1px;}
+  .s-ticker{display:none;}
+
+  /* SECTIONS */
+  .section{padding:64px 20px;}
+  .sec-title{font-size:32px;margin-bottom:36px;line-height:1.15;}
+
+  /* SERVICES */
+  .svc-grid{grid-template-columns:1fr;}
+  .svc-card{padding:28px 20px;}
+  .svc-name{font-size:12px;}
+
+  /* PROCESS */
+  .proc-layout{grid-template-columns:1fr;gap:40px;}
+  .terminal{display:none;}
+  .pstep{gap:14px;padding:20px 0;}
+  .pstep-n{font-size:20px;width:36px;}
+
+  /* PRICING */
+  .price-grid{grid-template-columns:1fr;}
+  .price-card{padding:32px 20px;}
+  .plan-p{font-size:48px;}
+  .plan-badge{font-size:6px;padding:3px 8px;}
+
+  /* SIGNUP */
+  .su-layout{grid-template-columns:1fr;gap:36px;}
+  .su-form{padding:24px 18px;}
+  .su-feats{gap:10px;}
+
+  /* FOOTER */
+  footer{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:18px;
+    padding:28px 20px;
+  }
+  .ft-links{flex-wrap:wrap;gap:14px;}
+}
+
+@media(max-width:400px){
+  .hero-hud{flex-direction:column;gap:12px;}
+  .hud-row{text-align:left;flex:none;}
+  .hud-bar{margin:4px 0 0;}
+  .sec-title{font-size:28px;}
+}
 </style>
 </head>
 <body>
@@ -182,17 +295,21 @@ footer{padding:36px 48px;border-top:1px solid var(--border);display:flex;align-i
 <div class="cursor" id="cursor"></div>
 <div class="cursor-ring" id="cursorRing"></div>
 
+<!-- NAV -->
 <nav>
   <div class="nav-brand">
     <div class="nav-dot"></div>
     <div class="nav-wordmark">Elevated Automations</div>
   </div>
-  <div class="nav-links">
+  <div class="nav-links" id="navLinks">
     <a href="#services">Services</a>
     <a href="#process">Process</a>
     <a href="#pricing">Pricing</a>
     <a href="https://calendly.com/elevauto/free-strategy-call" target="_blank" class="nav-cta">[ Deploy Army ]</a>
   </div>
+  <button class="nav-ham" id="navHam" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
 
 <!-- HERO -->
@@ -205,12 +322,12 @@ footer{padding:36px 48px;border-top:1px solid var(--border);display:flex;align-i
 
   <div class="hero-hud">
     <div class="hud-row">
-      <div class="hud-val" id="hv1">500+</div>
+      <div class="hud-val">50+</div>
       <div class="hud-lbl">Leads / month</div>
       <div class="hud-bar"><div class="hud-fill" style="--w:85%"></div></div>
     </div>
     <div class="hud-row">
-      <div class="hud-val" id="hv2">97%</div>
+      <div class="hud-val">97%</div>
       <div class="hud-lbl">Deliverability</div>
       <div class="hud-bar"><div class="hud-fill" style="--w:97%"></div></div>
     </div>
@@ -224,7 +341,7 @@ footer{padding:36px 48px;border-top:1px solid var(--border);display:flex;align-i
   <div class="hero-tag">AI Agent Army · All Systems Operational</div>
 
   <div class="hero-title">
-    <svg width="620" height="112" viewBox="0 0 620 112">
+    <svg width="620" height="112" viewBox="0 0 620 112" style="max-width:100%;height:auto;">
       <defs>
         <filter id="gl">
           <feOffset in="SourceGraphic" dx="-1.2" dy="0.7" result="r"/>
@@ -243,14 +360,12 @@ footer{padding:36px 48px;border-top:1px solid var(--border);display:flex;align-i
           <stop offset="100%" stop-color="rgba(245,240,232,0.45)"/>
         </linearGradient>
       </defs>
-      <!-- ELEVATED: reversed Ξ E + LEVATED -->
       <g filter="url(#gl)" fill="#F5F0E8">
         <rect x="2" y="6" width="24" height="2.2"/>
         <rect x="7" y="24" width="17" height="2.2"/>
         <rect x="2" y="42" width="24" height="2.2"/>
         <text x="34" y="48" font-family="Raleway,sans-serif" font-weight="100" font-size="52" letter-spacing="9">LEVATED</text>
       </g>
-      <!-- AUTOMATIONS: Λ + UTOMATIONS (one word, shiny) -->
       <g filter="url(#gl)">
         <line x1="1" y1="100" x2="17" y2="65" stroke="#F5F0E8" stroke-width="1.8"/>
         <line x1="17" y1="65" x2="33" y2="100" stroke="#F5F0E8" stroke-width="1.8"/>
@@ -280,96 +395,118 @@ footer{padding:36px 48px;border-top:1px solid var(--border);display:flex;align-i
   <div class="sec-eyebrow reveal">Capabilities</div>
   <div class="sec-title reveal">Six agents.<br><em>One command.</em></div>
   <div class="svc-grid">
+
     <div class="svc-card reveal">
       <div class="svc-num">[ 01 ]</div>
-      <div class="svc-icon">◎</div>
+      <div class="svc-icon">⊙</div>
       <div class="svc-name">Lead Generation</div>
       <div class="svc-desc">AI scours LinkedIn, Google, and Apollo to find ideal prospects by niche, title, and company — auto-logged to your CRM.</div>
-      <div class="svc-tag">SerpAPI · Apollo</div>
+      <div class="svc-tag"><span>Apollo</span><span>LinkedIn</span></div>
     </div>
+
     <div class="svc-card reveal">
       <div class="svc-num">[ 02 ]</div>
       <div class="svc-icon">✉</div>
       <div class="svc-name">Email Outreach</div>
       <div class="svc-desc">Claude writes hyper-personalized sequences for every lead. Apollo fires them automatically at the perfect time.</div>
-      <div class="svc-tag">Claude · Apollo</div>
+      <div class="svc-tag"><span>Claude</span><span>Apollo</span></div>
     </div>
+
     <div class="svc-card reveal">
       <div class="svc-num">[ 03 ]</div>
       <div class="svc-icon">◈</div>
       <div class="svc-name">Voice Calling</div>
       <div class="svc-desc">ElevenLabs AI voice calls your HOT leads via Twilio — books meetings, handles objections, qualifies on autopilot.</div>
-      <div class="svc-tag">ElevenLabs · Twilio</div>
+      <div class="svc-tag"><span>ElevenLabs</span><span>Twilio</span></div>
     </div>
+
     <div class="svc-card reveal">
       <div class="svc-num">[ 04 ]</div>
       <div class="svc-icon">⬡</div>
-      <div class="svc-name">LinkedIn Automation</div>
-      <div class="svc-desc">Automated connection requests, follow-ups, and DMs to decision makers at scale — safely and at volume.</div>
-      <div class="svc-tag">Phantombuster</div>
+      <div class="svc-name">CRM Automation</div>
+      <div class="svc-desc">Every lead, touchpoint, and reply auto-logged. Your pipeline stays clean and current without lifting a finger.</div>
+      <div class="svc-tag"><span>Google Sheets</span><span>n8n</span></div>
     </div>
+
     <div class="svc-card reveal">
       <div class="svc-num">[ 05 ]</div>
-      <div class="svc-icon">▣</div>
-      <div class="svc-name">CRM Management</div>
-      <div class="svc-desc">Every lead scored 0–100 and auto-logged. Track pipeline, status, and bookings in real time — zero manual entry.</div>
-      <div class="svc-tag">Google Sheets</div>
+      <div class="svc-icon">⟁</div>
+      <div class="svc-name">Instagram DMs</div>
+      <div class="svc-desc">AI agents turn comments, story replies, and DMs into booked calls. Keyword triggers fire your lead magnets automatically.</div>
+      <div class="svc-tag"><span>Boosend</span><span>Instagram</span></div>
     </div>
+
     <div class="svc-card reveal">
       <div class="svc-num">[ 06 ]</div>
-      <div class="svc-icon">◬</div>
-      <div class="svc-name">Workflow Automation</div>
-      <div class="svc-desc">Builder Agent creates custom n8n workflows on command. Automate any business process with one instruction.</div>
-      <div class="svc-tag">n8n · Claude</div>
+      <div class="svc-icon">▦</div>
+      <div class="svc-name">Command Center</div>
+      <div class="svc-desc">Daily 7am report delivered to your inbox — leads captured, emails sent, calls booked, revenue tracked. Full visibility, zero manual work.</div>
+      <div class="svc-tag"><span>n8n</span><span>Claude</span></div>
     </div>
+
   </div>
 </section>
 
 <!-- PROCESS -->
 <section id="process" class="section">
+  <div class="sec-eyebrow reveal">How It Works</div>
+  <div class="sec-title reveal">Deployed in<br><em>four moves.</em></div>
   <div class="proc-layout">
-    <div>
-      <div class="sec-eyebrow reveal">How it works</div>
-      <div class="sec-title reveal">Simple for you.<br><em>Powerful</em><br>behind the scenes.</div>
-      <div class="proc-steps">
-        <div class="pstep reveal">
-          <div class="pstep-n">01</div>
-          <div><div class="pstep-name">// You give a command</div><div class="pstep-desc">Type or speak. "Find 25 SaaS CEOs and email them." The army activates instantly — no setup required.</div></div>
-        </div>
-        <div class="pstep reveal">
-          <div class="pstep-n">02</div>
-          <div><div class="pstep-name">// Army deploys</div><div class="pstep-desc">11 specialized AI agents activate — finding leads, writing copy, firing emails, booking calls simultaneously.</div></div>
-        </div>
-        <div class="pstep reveal">
-          <div class="pstep-n">03</div>
-          <div><div class="pstep-name">// Results flow in</div><div class="pstep-desc">Watch leads log to your CRM live. Get notified when meetings book. Daily digests every morning at 7am.</div></div>
-        </div>
-        <div class="pstep reveal">
-          <div class="pstep-n">04</div>
-          <div><div class="pstep-name">// You close deals</div><div class="pstep-desc">Show up to qualified meetings with warm prospects. Close. Scale. The army never stops working.</div></div>
+    <div class="proc-steps">
+
+      <div class="pstep reveal">
+        <div class="pstep-n">01</div>
+        <div>
+          <div class="pstep-name">Strategy Call</div>
+          <div class="pstep-desc">We map your ICP, goals, and current stack. 30 minutes to understand your business and identify the highest-ROI automations to deploy first.</div>
         </div>
       </div>
+
+      <div class="pstep reveal">
+        <div class="pstep-n">02</div>
+        <div>
+          <div class="pstep-name">Build & Configure</div>
+          <div class="pstep-desc">We build your full agent army — lead finder, email sequences, voice caller, CRM logger, and Command Center report — all connected and tested.</div>
+        </div>
+      </div>
+
+      <div class="pstep reveal">
+        <div class="pstep-n">03</div>
+        <div>
+          <div class="pstep-name">Launch & Monitor</div>
+          <div class="pstep-desc">Your army goes live. We monitor performance, tune sequences, and optimize targeting in the first 14 days to maximize results.</div>
+        </div>
+      </div>
+
+      <div class="pstep reveal">
+        <div class="pstep-n">04</div>
+        <div>
+          <div class="pstep-name">Scale</div>
+          <div class="pstep-desc">Once the system is proven, we expand — more channels, more agents, more automation layers. You close deals. We handle the rest.</div>
+        </div>
+      </div>
+
     </div>
+
     <div class="terminal reveal">
       <div class="term-bar">
-        <div class="tdot td1"></div><div class="tdot td2"></div><div class="tdot td3"></div>
-        <div class="term-title">cmd_center_v4 — Command Center</div>
+        <div class="tdot td1"></div>
+        <div class="tdot td2"></div>
+        <div class="tdot td3"></div>
+        <div class="term-title">ea-agent-army · live</div>
       </div>
       <div class="term-body">
-        <div class="tl"><span class="pr">GENERAL ▸</span> <span class="cmd">find 25 fintech CEO leads</span></div>
-        <div class="tl"><span class="dim">────────────────────────────</span></div>
-        <div class="tl"><span class="ok">✓</span> <span class="cmd">[DISPATCHING: Lead Finder → SerpAPI]</span></div>
-        <div class="tl"><span class="ok">✓</span> <span class="dim">10 leads found · logging to CRM</span></div>
-        <div class="tl"><span class="ok">✓</span> <span class="dim">Massimo Arrigoni · CEO · score: 94</span></div>
-        <div class="tl"><span class="ok">✓</span> <span class="dim">Jane Portman · Co-founder · score: 88</span></div>
-        <div class="tl"><span class="ok">✓</span> <span class="dim">Nick Campion · CEO · score: 82</span></div>
-        <div class="tl"><span class="dim">────────────────────────────</span></div>
-        <div class="tl"><span class="hi">[DISPATCHING: Copywriter → emails]</span></div>
-        <div class="tl"><span class="ok">✓</span> <span class="dim">3 personalized sequences written</span></div>
-        <div class="tl"><span class="hi">[DISPATCHING: Email Agent → Apollo]</span></div>
-        <div class="tl"><span class="ok">✓</span> <span class="dim">Emails queued · firing in 4 minutes</span></div>
-        <div class="tl"><span class="dim">────────────────────────────</span></div>
-        <div class="tl"><span class="pr">GENERAL ▸</span> <span class="cblink"></span></div>
+        <div class="tl"><span class="pr">ea</span> <span class="dim">~</span> <span class="cmd">initializing lead scan...</span></div>
+        <div class="tl"><span class="ok">✓</span> Apollo connected · 2,400 prospects found</div>
+        <div class="tl"><span class="ok">✓</span> ICP filter applied · <span class="hi">847 qualified</span></div>
+        <div class="tl"><span class="dim">—</span> Enriching with LinkedIn data...</div>
+        <div class="tl"><span class="ok">✓</span> Claude generating personalized sequences</div>
+        <div class="tl"><span class="ok">✓</span> 847 emails queued · sending at optimal time</div>
+        <div class="tl"><span class="dim">—</span> Monitoring replies...</div>
+        <div class="tl"><span class="ok">✓</span> <span class="hi">12 hot leads</span> detected · routing to voice agent</div>
+        <div class="tl"><span class="ok">✓</span> ElevenLabs dialing via Twilio...</div>
+        <div class="tl"><span class="ok">✓</span> <span class="hi">3 meetings booked</span> · logged to CRM</div>
+        <div class="tl"><span class="pr">ea</span> <span class="dim">~</span> <span class="cblink"></span></div>
       </div>
     </div>
   </div>
@@ -378,101 +515,161 @@ footer{padding:36px 48px;border-top:1px solid var(--border);display:flex;align-i
 <!-- PRICING -->
 <section id="pricing" class="section">
   <div class="sec-eyebrow reveal">Investment</div>
-  <div class="sec-title reveal">Pick your<br><em>firepower.</em></div>
-  <div class="price-grid reveal">
-    <div class="price-card">
-      <div class="plan-tier">// Starter</div>
-      <div class="plan-p"><sup>$</sup>497</div>
-      <div class="plan-mo">per month</div>
-      <div class="plan-div"></div>
-      <div class="plan-feats">
-        <div class="plan-feat"><span class="pf-check">◎</span>100 leads per month</div>
-        <div class="plan-feat"><span class="pf-check">◎</span>Email sequences</div>
-        <div class="plan-feat"><span class="pf-check">◎</span>Google Sheets CRM</div>
-        <div class="plan-feat"><span class="pf-check">◎</span>Command Center access</div>
-        <div class="plan-feat"><span class="pf-check">◎</span>Daily reports</div>
-      </div>
-      <a href="https://calendly.com/elevauto/free-strategy-call" target="_blank" class="plan-btn">Book a Free Strategy Call</a>
-    </div>
-    <div class="price-card feat">
-      <div class="plan-badge">Most Popular</div>
-      <div class="plan-tier">// Growth</div>
+  <div class="sec-title reveal">Pick your<br><em>deployment tier.</em></div>
+  <div class="price-grid">
+
+    <div class="price-card reveal">
+      <div class="plan-tier">Starter</div>
       <div class="plan-p"><sup>$</sup>997</div>
-      <div class="plan-mo">per month</div>
+      <div class="plan-mo">/ month</div>
       <div class="plan-div"></div>
       <div class="plan-feats">
-        <div class="plan-feat"><span class="pf-check">◎</span>500 leads per month</div>
-        <div class="plan-feat"><span class="pf-check">◎</span>Email + LinkedIn outreach</div>
-        <div class="plan-feat"><span class="pf-check">◎</span>Voice calling agent</div>
-        <div class="plan-feat"><span class="pf-check">◎</span>Lead scoring 0–100</div>
-        <div class="plan-feat"><span class="pf-check">◎</span>Priority support</div>
+        <div class="plan-feat"><span class="pf-check">▸</span>Lead generation (250/mo)</div>
+        <div class="plan-feat"><span class="pf-check">▸</span>Email sequences (Claude)</div>
+        <div class="plan-feat"><span class="pf-check">▸</span>CRM auto-logging</div>
+        <div class="plan-feat"><span class="pf-check">▸</span>Weekly report</div>
+        <div class="plan-feat"><span class="pf-check">▸</span>1 revision / month</div>
       </div>
-      <a href="https://calendly.com/elevauto/free-strategy-call" target="_blank" class="plan-btn">Book a Free Strategy Call</a>
+      <a href="https://calendly.com/elevauto/free-strategy-call" target="_blank" class="plan-btn">Deploy Starter</a>
     </div>
-    <div class="price-card">
-      <div class="plan-tier">// Agency</div>
-      <div class="plan-p"><sup>$</sup>2,497</div>
-      <div class="plan-mo">per month</div>
+
+    <div class="price-card feat reveal">
+      <div class="plan-badge">Most Popular</div>
+      <div class="plan-tier">Growth</div>
+      <div class="plan-p"><sup>$</sup>1,997</div>
+      <div class="plan-mo">/ month</div>
       <div class="plan-div"></div>
       <div class="plan-feats">
-        <div class="plan-feat"><span class="pf-check">◎</span>Unlimited leads</div>
-        <div class="plan-feat"><span class="pf-check">◎</span>Full army deployment</div>
-        <div class="plan-feat"><span class="pf-check">◎</span>Custom workflow builder</div>
-        <div class="plan-feat"><span class="pf-check">◎</span>White label client portal</div>
-        <div class="plan-feat"><span class="pf-check">◎</span>Dedicated account manager</div>
+        <div class="plan-feat"><span class="pf-check">▸</span>Lead generation (500/mo)</div>
+        <div class="plan-feat"><span class="pf-check">▸</span>Email + voice calling</div>
+        <div class="plan-feat"><span class="pf-check">▸</span>Instagram DM automation</div>
+        <div class="plan-feat"><span class="pf-check">▸</span>CRM + Command Center</div>
+        <div class="plan-feat"><span class="pf-check">▸</span>Daily 7am report</div>
+        <div class="plan-feat"><span class="pf-check">▸</span>Unlimited revisions</div>
       </div>
-      <a href="https://calendly.com/elevauto/free-strategy-call" target="_blank" class="plan-btn">Book a Free Strategy Call</a>
+      <a href="https://calendly.com/elevauto/free-strategy-call" target="_blank" class="plan-btn">Deploy Growth</a>
     </div>
+
+    <div class="price-card reveal">
+      <div class="plan-tier">Elite</div>
+      <div class="plan-p"><sup>$</sup>3,497</div>
+      <div class="plan-mo">/ month</div>
+      <div class="plan-div"></div>
+      <div class="plan-feats">
+        <div class="plan-feat"><span class="pf-check">▸</span>Full 6-agent army</div>
+        <div class="plan-feat"><span class="pf-check">▸</span>Unlimited leads</div>
+        <div class="plan-feat"><span class="pf-check">▸</span>Custom AI voice clone</div>
+        <div class="plan-feat"><span class="pf-check">▸</span>Multi-channel outreach</div>
+        <div class="plan-feat"><span class="pf-check">▸</span>Dedicated build team</div>
+        <div class="plan-feat"><span class="pf-check">▸</span>Weekly strategy call</div>
+      </div>
+      <a href="https://calendly.com/elevauto/free-strategy-call" target="_blank" class="plan-btn">Deploy Elite</a>
+    </div>
+
   </div>
 </section>
 
 <!-- SIGNUP -->
 <section id="signup" class="section">
   <div class="su-layout">
-    <div>
-      <div class="sec-eyebrow reveal">Enlist now</div>
-      <div class="sec-title reveal">Deploy your<br><em>army today.</em></div>
-      <div class="su-feats reveal">
-        <div class="su-feat"><div class="su-dot"></div>Setup in under 24 hours</div>
-        <div class="su-feat"><div class="su-dot"></div>No long-term contracts</div>
-        <div class="su-feat"><div class="su-dot"></div>Cancel anytime</div>
-        <div class="su-feat"><div class="su-dot"></div>Full onboarding included</div>
-        <div class="su-feat"><div class="su-dot"></div>Real humans behind the tech</div>
+    <div class="reveal">
+      <div class="sec-eyebrow">Get Started</div>
+      <div class="sec-title" style="margin-bottom:20px;">Ready to deploy<br><em>your army?</em></div>
+      <div style="font-size:13px;line-height:1.9;color:var(--muted);margin-bottom:28px;">Tell us about your business and we'll build a custom automation strategy — no obligation, just clarity on what's possible.</div>
+      <div class="su-feats">
+        <div class="su-feat"><div class="su-dot"></div>Free 30-min strategy call</div>
+        <div class="su-feat"><div class="su-dot"></div>Custom automation roadmap</div>
+        <div class="su-feat"><div class="su-dot"></div>Live demo of your agent army</div>
+        <div class="su-feat"><div class="su-dot"></div>No contracts, cancel anytime</div>
       </div>
     </div>
-    <form class="su-form reveal" action="https://formspree.io/f/mojrkegb" method="POST">
-      <div class="form-hd">Book your strategy call</div>
-      <div class="form-fs">
-        <div class="form-f"><label class="form-lbl">Full Name</label><input type="text" name="name" class="form-inp" name="name" placeholder="Your name" required required/></div>
-        <div class="form-f"><label class="form-lbl">Business Email</label><input type="email" name="email" class="form-inp" name="email" placeholder="you@company.com" required required/></div>
-        <div class="form-f"><label class="form-lbl">Business Name</label><input type="text" name="company" class="form-inp" name="company" placeholder="Your company"/></div>
-        <div class="form-f"><label class="form-lbl">Select Plan</label><select name="plan" class="form-sel form-inp"><option>Starter — $497/mo</option><option>Growth — $997/mo</option><option>Agency — $2,497/mo</option></select></div>
-        <button type="submit" class="form-sub">Book a Free Strategy Call →</button>
-      </div>
+
+    <div class="su-form reveal">
+      <div class="form-hd">Deploy Request</div>
+      <form class="form-fs" action="https://formspree.io/f/mojrkegb" method="POST">
+        <div class="form-f">
+          <div class="form-lbl">Full Name</div>
+          <input class="form-inp" type="text" name="name" placeholder="John Smith" required>
+        </div>
+        <div class="form-f">
+          <div class="form-lbl">Email</div>
+          <input class="form-inp" type="email" name="email" placeholder="john@company.com" required>
+        </div>
+        <div class="form-f">
+          <div class="form-lbl">Business Type</div>
+          <select class="form-sel" name="business_type">
+            <option value="">Select...</option>
+            <option>Agency</option>
+            <option>SaaS / Tech</option>
+            <option>Consulting</option>
+            <option>E-commerce</option>
+            <option>Real Estate</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="form-f">
+          <div class="form-lbl">Monthly Revenue</div>
+          <select class="form-sel" name="revenue">
+            <option value="">Select...</option>
+            <option>Pre-revenue</option>
+            <option>$1k – $10k</option>
+            <option>$10k – $50k</option>
+            <option>$50k – $100k</option>
+            <option>$100k+</option>
+          </select>
+        </div>
+        <button type="submit" class="form-sub">[ Deploy My Army ]</button>
+      </form>
     </div>
   </div>
 </section>
 
+<!-- FOOTER -->
 <footer>
-  <div class="ft-brand"><div class="nav-dot" style="width:5px;height:5px;"></div>Elevated Automations</div>
-  <div class="ft-links"><a href="#services">Services</a><a href="#pricing">Pricing</a><a href="https://calendly.com/elevauto/free-strategy-call" target="_blank">Sign Up</a></div>
-  <div class="ft-copy">© 2026 Elevated Automations · All systems operational</div>
+  <div class="ft-brand">
+    <div class="nav-dot" style="width:5px;height:5px;"></div>
+    Elevated Automations
+  </div>
+  <div class="ft-links">
+    <a href="#services">Services</a>
+    <a href="#process">Process</a>
+    <a href="#pricing">Pricing</a>
+    <a href="mailto:hello@elevatedautomations.org">Contact</a>
+  </div>
+  <div class="ft-copy">© 2025 Elevated Automations</div>
 </footer>
 
 <script>
-const cursor=document.getElementById('cursor');
-const ring=document.getElementById('cursorRing');
-let mx=0,my=0,rx=0,ry=0;
-document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cursor.style.left=mx-3+'px';cursor.style.top=my-3+'px';});
-(function animRing(){rx+=(mx-rx)*0.1;ry+=(my-ry)*0.1;ring.style.left=rx-14+'px';ring.style.top=ry-14+'px';requestAnimationFrame(animRing);})();
-document.querySelectorAll('a,button,.svc-card,.price-card,.pstep').forEach(el=>{
-  el.addEventListener('mouseenter',()=>{cursor.style.transform='scale(2.5)';ring.style.transform='scale(1.5)';ring.style.borderColor='rgba(255,214,0,0.8)';});
-  el.addEventListener('mouseleave',()=>{cursor.style.transform='scale(1)';ring.style.transform='scale(1)';ring.style.borderColor='rgba(255,214,0,0.5)';});
-});
-const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible');});},{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
-document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
-document.querySelectorAll('.svc-card,.price-card').forEach((el,i)=>{el.style.transitionDelay=i*0.07+'s';el.classList.add('reveal');obs.observe(el);});
+// Cursor
+const cur = document.getElementById('cursor');
+const ring = document.getElementById('cursorRing');
+if(cur && ring){
+  document.addEventListener('mousemove', e => {
+    cur.style.left = e.clientX - 3 + 'px';
+    cur.style.top  = e.clientY - 3 + 'px';
+    ring.style.left = e.clientX - 14 + 'px';
+    ring.style.top  = e.clientY - 14 + 'px';
+  });
+}
 
+// Hamburger
+const ham = document.getElementById('navHam');
+const links = document.getElementById('navLinks');
+if(ham && links){
+  ham.addEventListener('click', () => {
+    links.classList.toggle('open');
+  });
+  // Close on link tap
+  links.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => links.classList.remove('open'));
+  });
+}
+
+// Reveal on scroll
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 </script>
 </body>
 </html>
