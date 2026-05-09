@@ -7,30 +7,12 @@
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500&family=Raleway:wght@200;300;400&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
-:root{
-  --bg:#070809;
-  --surface:#0d0f10;
-  --surface2:#131618;
-  --surface3:#1a1d20;
-  --accent:#00f5d4;
-  --accent2:#00c4aa;
-  --yellow:#FFD600;
-  --red:#ff3355;
-  --text:#e8eaed;
-  --muted:rgba(232,234,237,0.45);
-  --muted2:rgba(232,234,237,0.2);
-  --border:rgba(0,245,212,0.08);
-  --border2:rgba(0,245,212,0.2);
-}
+:root{--bg:#070809;--surface:#0d0f10;--surface2:#131618;--surface3:#1a1d20;--accent:#00f5d4;--accent2:#00c4aa;--yellow:#FFD600;--red:#ff3355;--text:#e8eaed;--muted:rgba(232,234,237,0.45);--muted2:rgba(232,234,237,0.2);--border:rgba(0,245,212,0.08);--border2:rgba(0,245,212,0.2);}
 html,body{height:100%;overflow:hidden;}
 body{background:var(--bg);color:var(--text);font-family:'JetBrains Mono',monospace;font-size:13px;}
 body::after{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,245,212,0.008) 2px,rgba(0,245,212,0.008) 4px);pointer-events:none;z-index:9999;}
-
-/* LAYOUT */
 .shell{display:grid;grid-template-columns:220px 1fr 240px;grid-template-rows:48px 1fr 60px;height:100vh;}
-
-/* TOP BAR */
-.topbar{grid-column:1/-1;display:flex;align-items:center;gap:0;background:var(--surface);border-bottom:1px solid var(--border);padding:0 16px;justify-content:space-between;}
+.topbar{grid-column:1/-1;display:flex;align-items:center;background:var(--surface);border-bottom:1px solid var(--border);padding:0 16px;justify-content:space-between;}
 .tb-left{display:flex;align-items:center;gap:12px;}
 .tb-logo{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--accent);display:flex;align-items:center;gap:8px;}
 .tb-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 8px var(--accent);animation:blink 2s infinite;}
@@ -42,17 +24,11 @@ body::after{content:'';position:fixed;inset:0;background:repeating-linear-gradie
 .tb-clock{font-size:11px;color:var(--muted2);letter-spacing:2px;}
 .tb-btn{background:transparent;border:1px solid var(--border);color:var(--muted);padding:5px 12px;font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:all 0.2s;}
 .tb-btn:hover{border-color:var(--border2);color:var(--accent);}
-.tb-btn.voice-btn{border-color:rgba(0,245,212,0.15);}
-.tb-btn.voice-btn.recording{border-color:var(--red);color:var(--red);animation:pulse 1s infinite;}
-@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(255,51,85,0.4);}50%{box-shadow:0 0 0 6px rgba(255,51,85,0);}}
-
-/* LEFT PANEL */
+.tb-btn.recording{border-color:var(--red);color:var(--red);}
 .left-panel{background:var(--surface);border-right:1px solid var(--border);overflow-y:auto;display:flex;flex-direction:column;}
 .panel-section{padding:14px 12px;border-bottom:1px solid var(--border);}
 .panel-label{font-size:7px;letter-spacing:4px;text-transform:uppercase;color:var(--muted2);margin-bottom:10px;display:flex;align-items:center;gap:6px;}
 .panel-label::before{content:'';width:12px;height:1px;background:var(--accent);}
-
-/* AGENTS */
 .agent-item{display:flex;align-items:center;gap:8px;padding:7px 8px;border-radius:2px;cursor:pointer;transition:background 0.2s;margin-bottom:2px;}
 .agent-item:hover{background:var(--surface2);}
 .agent-item.active{background:rgba(0,245,212,0.06);border-left:2px solid var(--accent);}
@@ -63,23 +39,16 @@ body::after{content:'';position:fixed;inset:0;background:repeating-linear-gradie
 .agent-name{font-size:9px;letter-spacing:1px;color:var(--muted);flex:1;}
 .agent-item.active .agent-name{color:var(--accent);}
 .agent-squad{font-size:7px;color:var(--muted2);letter-spacing:1px;}
-
-/* MISSIONS */
 .mission-chips{display:flex;flex-direction:column;gap:5px;}
 .mission-chip{display:flex;align-items:center;gap:7px;font-size:8px;letter-spacing:1px;color:var(--muted2);padding:5px 0;}
 .chip-dot{width:5px;height:5px;border-radius:50%;}
 .chip-dot.running{background:var(--accent);box-shadow:0 0 5px var(--accent);animation:blink 1.5s infinite;}
 .chip-dot.done{background:#00ff88;}
 .chip-dot.idle{background:rgba(232,234,237,0.15);}
-
-/* MAIN CHAT */
-.main{background:var(--bg);display:flex;flex-direction:column;overflow:hidden;position:relative;}
+.main{background:var(--bg);display:flex;flex-direction:column;overflow:hidden;}
 .messages{flex:1;overflow-y:auto;padding:20px 24px;display:flex;flex-direction:column;gap:14px;scroll-behavior:smooth;}
 .messages::-webkit-scrollbar{width:3px;}
-.messages::-webkit-scrollbar-track{background:transparent;}
-.messages::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px;}
-
-/* MESSAGES */
+.messages::-webkit-scrollbar-thumb{background:var(--border2);}
 .msg{display:flex;gap:10px;animation:fadeIn 0.3s ease;}
 @keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
 .msg.you{flex-direction:row-reverse;}
@@ -102,8 +71,6 @@ body::after{content:'';position:fixed;inset:0;background:repeating-linear-gradie
 .typing span:nth-child(2){animation-delay:0.2s;}
 .typing span:nth-child(3){animation-delay:0.4s;}
 @keyframes bounce{0%,80%,100%{transform:translateY(0);}40%{transform:translateY(-6px);}}
-
-/* INPUT */
 .input-area{border-top:1px solid var(--border);background:var(--surface);padding:12px 16px;}
 .quick-cmds{display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap;}
 .quick-cmd{font-size:8px;letter-spacing:1px;color:var(--muted2);border:1px solid var(--border);padding:4px 10px;cursor:pointer;transition:all 0.2s;white-space:nowrap;}
@@ -117,51 +84,34 @@ body::after{content:'';position:fixed;inset:0;background:repeating-linear-gradie
 .send-btn:disabled{opacity:0.4;cursor:default;}
 .mic-btn{background:transparent;border:1px solid var(--border);color:var(--muted2);padding:10px 14px;cursor:pointer;font-size:14px;transition:all 0.2s;align-self:flex-end;}
 .mic-btn:hover{border-color:var(--border2);color:var(--accent);}
-.mic-btn.recording{border-color:var(--red);color:var(--red);animation:pulse 1s infinite;}
-
-/* RIGHT PANEL */
+.mic-btn.recording{border-color:var(--red);color:var(--red);}
 .right-panel{background:var(--surface);border-left:1px solid var(--border);overflow-y:auto;display:flex;flex-direction:column;}
 .panel-title{font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--muted2);display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
-
-/* PIPELINES */
 .pipeline-item{margin-bottom:12px;}
 .pipeline-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;}
 .pipeline-name{font-size:9px;letter-spacing:1px;color:var(--text);}
 .pipeline-badge{font-size:7px;letter-spacing:1px;padding:2px 6px;}
 .pb-live{background:rgba(0,255,136,0.08);color:#00ff88;border:1px solid rgba(0,255,136,0.2);}
 .pb-building{background:rgba(255,214,0,0.08);color:var(--yellow);border:1px solid rgba(255,214,0,0.2);}
-.pb-idle{background:var(--surface3);color:var(--muted2);border:1px solid var(--border);}
 .pipeline-meta{font-size:8px;color:var(--muted2);margin-bottom:5px;}
 .progress-bar{height:2px;background:var(--surface3);border-radius:1px;overflow:hidden;}
-.progress-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:1px;transition:width 1s ease;}
-
-/* STATS */
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:1px;}
 .stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;}
 .stat-card{background:var(--surface2);border:1px solid var(--border);padding:10px 8px;text-align:center;}
 .stat-val{font-size:20px;color:var(--accent);line-height:1;margin-bottom:3px;}
 .stat-lbl{font-size:7px;letter-spacing:2px;text-transform:uppercase;color:var(--muted2);}
-
-/* ACTIVITY */
 .activity-item{display:flex;flex-direction:column;gap:2px;padding:6px 0;border-bottom:1px solid var(--border);}
 .activity-time{font-size:8px;color:var(--muted2);}
-.activity-text{font-size:9px;color:var(--muted);letter-spacing:0.5px;}
-
-/* SIDEBAR DIVIDER */
+.activity-text{font-size:9px;color:var(--muted);}
 .sidebar-divider{height:1px;background:var(--border);margin:4px 0;}
-
-/* QUICK BUILD */
 .build-grid{display:grid;grid-template-columns:1fr 1fr;gap:5px;}
 .build-btn{background:var(--surface2);border:1px solid var(--border);color:var(--muted2);padding:8px 6px;font-family:'JetBrains Mono',monospace;font-size:7px;letter-spacing:1px;text-transform:uppercase;cursor:pointer;transition:all 0.2s;text-align:center;}
 .build-btn:hover{border-color:var(--border2);color:var(--accent);}
-
-/* BOTTOM BAR */
 .bottom-bar{grid-column:1/-1;background:var(--surface);border-top:1px solid var(--border);display:flex;align-items:center;gap:20px;padding:0 16px;font-size:8px;letter-spacing:2px;color:var(--muted2);}
 .bb-item{display:flex;align-items:center;gap:6px;}
 .bb-dot{width:4px;height:4px;border-radius:50%;}
 .bb-dot.active{background:var(--accent);box-shadow:0 0 4px var(--accent);}
 .bb-dot.dim{background:rgba(232,234,237,0.2);}
-
-/* MODAL */
 .modal{position:fixed;inset:0;background:rgba(7,8,9,0.85);backdrop-filter:blur(8px);z-index:1000;display:none;align-items:center;justify-content:center;}
 .modal.open{display:flex;}
 .modal-card{background:var(--surface);border:1px solid var(--border2);padding:32px;width:460px;max-width:90vw;max-height:90vh;overflow-y:auto;}
@@ -175,97 +125,40 @@ body::after{content:'';position:fixed;inset:0;background:repeating-linear-gradie
 .modal-btn{flex:1;padding:10px;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:3px;text-transform:uppercase;cursor:pointer;border:1px solid var(--border);background:transparent;color:var(--muted);transition:all 0.2s;}
 .modal-btn:hover{border-color:var(--border2);color:var(--accent);}
 .modal-btn.primary{background:var(--accent);color:var(--bg);border-color:var(--accent);}
-.modal-btn.primary:hover{box-shadow:0 0 16px rgba(0,245,212,0.3);}
-
-/* SCROLLBAR */
-::-webkit-scrollbar{width:3px;}
-::-webkit-scrollbar-track{background:transparent;}
-::-webkit-scrollbar-thumb{background:var(--border2);}
-
-/* MOBILE */
-@media(max-width:768px){
-  .shell{grid-template-columns:1fr;grid-template-rows:48px 1fr auto 56px;}
-  .left-panel,.right-panel{display:none;}
-  .bottom-bar{font-size:7px;gap:10px;overflow-x:auto;}
-}
+@media(max-width:768px){.shell{grid-template-columns:1fr;grid-template-rows:48px 1fr auto 56px;}.left-panel,.right-panel{display:none;}.bottom-bar{font-size:7px;gap:10px;overflow-x:auto;}}
 </style>
 </head>
 <body>
-
 <div class="shell">
 
-  <!-- TOP BAR -->
   <div class="topbar">
     <div class="tb-left">
-      <div class="tb-logo">
-        <div class="tb-dot"></div>
-        Elevated Automations
-      </div>
+      <div class="tb-logo"><div class="tb-dot"></div>Elevated Automations</div>
       <div class="tb-divider"></div>
-      <div class="tb-status">
-        <div class="tb-status-dot"></div>
-        Command Center · All 11 Agents Standing By
-      </div>
+      <div class="tb-status"><div class="tb-status-dot"></div>Command Center · All 11 Agents Standing By</div>
     </div>
     <div class="tb-right">
       <div class="tb-clock" id="clock">00:00:00</div>
-      <button class="tb-btn voice-btn" id="voiceTopBtn" onclick="toggleVoice()">🎙 Voice</button>
+      <button class="tb-btn" id="voiceTopBtn" onclick="toggleVoice()">🎙 Voice</button>
       <button class="tb-btn" onclick="openSettings()">Configure</button>
     </div>
   </div>
 
-  <!-- LEFT PANEL -->
   <div class="left-panel">
     <div class="panel-section">
       <div class="panel-label">Agent Network</div>
-
-      <div class="agent-item active" onclick="selectAgent(this,'Architect')">
-        <div class="agent-dot online"></div>
-        <div><div class="agent-name">Architect</div><div class="agent-squad">Build Squad</div></div>
-      </div>
-      <div class="agent-item" onclick="selectAgent(this,'Builder')">
-        <div class="agent-dot online"></div>
-        <div><div class="agent-name">Builder</div><div class="agent-squad">Build Squad</div></div>
-      </div>
-      <div class="agent-item" onclick="selectAgent(this,'Debugger')">
-        <div class="agent-dot idle"></div>
-        <div><div class="agent-name">Debugger</div><div class="agent-squad">Build Squad</div></div>
-      </div>
-      <div class="agent-item" onclick="selectAgent(this,'Lead Finder')">
-        <div class="agent-dot online"></div>
-        <div><div class="agent-name">Lead Finder</div><div class="agent-squad">Ops Squad</div></div>
-      </div>
-      <div class="agent-item" onclick="selectAgent(this,'Scorer')">
-        <div class="agent-dot online"></div>
-        <div><div class="agent-name">Scorer</div><div class="agent-squad">Ops Squad</div></div>
-      </div>
-      <div class="agent-item" onclick="selectAgent(this,'Copywriter')">
-        <div class="agent-dot online"></div>
-        <div><div class="agent-name">Copywriter</div><div class="agent-squad">Ops Squad</div></div>
-      </div>
-      <div class="agent-item" onclick="selectAgent(this,'CRM Agent')">
-        <div class="agent-dot online"></div>
-        <div><div class="agent-name">CRM Agent</div><div class="agent-squad">Ops Squad</div></div>
-      </div>
-      <div class="agent-item" onclick="selectAgent(this,'Email Agent')">
-        <div class="agent-dot online"></div>
-        <div><div class="agent-name">Email Agent</div><div class="agent-squad">Outreach Squad</div></div>
-      </div>
-      <div class="agent-item" onclick="selectAgent(this,'Voice Agent')">
-        <div class="agent-dot online"></div>
-        <div><div class="agent-name">Voice Agent</div><div class="agent-squad">Outreach Squad</div></div>
-      </div>
-      <div class="agent-item" onclick="selectAgent(this,'Reporter')">
-        <div class="agent-dot building"></div>
-        <div><div class="agent-name">Reporter</div><div class="agent-squad">Support Squad</div></div>
-      </div>
-      <div class="agent-item" onclick="selectAgent(this,'Watchdog')">
-        <div class="agent-dot idle"></div>
-        <div><div class="agent-name">Watchdog</div><div class="agent-squad">Support Squad</div></div>
-      </div>
-
+      <div class="agent-item active" onclick="selectAgent(this,'Architect')"><div class="agent-dot online"></div><div><div class="agent-name">Architect</div><div class="agent-squad">Build Squad</div></div></div>
+      <div class="agent-item" onclick="selectAgent(this,'Builder')"><div class="agent-dot online"></div><div><div class="agent-name">Builder</div><div class="agent-squad">Build Squad</div></div></div>
+      <div class="agent-item" onclick="selectAgent(this,'Debugger')"><div class="agent-dot idle"></div><div><div class="agent-name">Debugger</div><div class="agent-squad">Build Squad</div></div></div>
+      <div class="agent-item" onclick="selectAgent(this,'Lead Finder')"><div class="agent-dot online"></div><div><div class="agent-name">Lead Finder</div><div class="agent-squad">Ops Squad</div></div></div>
+      <div class="agent-item" onclick="selectAgent(this,'Scorer')"><div class="agent-dot online"></div><div><div class="agent-name">Scorer</div><div class="agent-squad">Ops Squad</div></div></div>
+      <div class="agent-item" onclick="selectAgent(this,'Copywriter')"><div class="agent-dot online"></div><div><div class="agent-name">Copywriter</div><div class="agent-squad">Ops Squad</div></div></div>
+      <div class="agent-item" onclick="selectAgent(this,'CRM Agent')"><div class="agent-dot online"></div><div><div class="agent-name">CRM Agent</div><div class="agent-squad">Ops Squad</div></div></div>
+      <div class="agent-item" onclick="selectAgent(this,'Email Agent')"><div class="agent-dot online"></div><div><div class="agent-name">Email Agent</div><div class="agent-squad">Outreach Squad</div></div></div>
+      <div class="agent-item" onclick="selectAgent(this,'Voice Agent')"><div class="agent-dot online"></div><div><div class="agent-name">Voice Agent</div><div class="agent-squad">Outreach Squad</div></div></div>
+      <div class="agent-item" onclick="selectAgent(this,'Reporter')"><div class="agent-dot building"></div><div><div class="agent-name">Reporter</div><div class="agent-squad">Support Squad</div></div></div>
+      <div class="agent-item" onclick="selectAgent(this,'Watchdog')"><div class="agent-dot idle"></div><div><div class="agent-name">Watchdog</div><div class="agent-squad">Support Squad</div></div></div>
     </div>
-
     <div class="panel-section">
       <div class="panel-label">Mission Status</div>
       <div class="mission-chips">
@@ -282,22 +175,16 @@ body::after{content:'';position:fixed;inset:0;background:repeating-linear-gradie
     </div>
   </div>
 
-  <!-- MAIN CHAT -->
   <div class="main">
     <div class="messages" id="messages">
       <div class="msg">
         <div class="msg-avatar avatar-cmd">CC</div>
         <div class="msg-body">
-          <div class="msg-header">
-            <span class="msg-name">Command Center</span>
-            <span class="msg-badge badge-cmd">System</span>
-            <span class="msg-time" id="initTime"></span>
-          </div>
+          <div class="msg-header"><span class="msg-name">Command Center</span><span class="msg-badge badge-cmd">System</span><span class="msg-time" id="initTime"></span></div>
           <div class="msg-text">Command Center online. All 11 agents standing by. Awaiting your orders, General.</div>
         </div>
       </div>
     </div>
-
     <div class="input-area">
       <div class="quick-cmds">
         <div class="quick-cmd" onclick="setCmd('Find 25 roofing leads in Nevada')">Find leads</div>
@@ -314,7 +201,6 @@ body::after{content:'';position:fixed;inset:0;background:repeating-linear-gradie
     </div>
   </div>
 
-  <!-- RIGHT PANEL -->
   <div class="right-panel">
     <div class="panel-section">
       <div class="panel-title"><span>Live Stats</span></div>
@@ -325,35 +211,15 @@ body::after{content:'';position:fixed;inset:0;background:repeating-linear-gradie
         <div class="stat-card"><div class="stat-val" id="statMeetings">0</div><div class="stat-lbl">Meetings</div></div>
       </div>
     </div>
-
     <div class="sidebar-divider"></div>
-
     <div class="panel-section">
       <div class="panel-title"><span>Active Pipelines</span><span style="color:var(--accent);font-size:0.65rem;">3</span></div>
-      <div class="pipeline-item">
-        <div class="pipeline-header"><span class="pipeline-name">Lead Gen Pipeline</span><span class="pipeline-badge pb-live">Live</span></div>
-        <div class="pipeline-meta">Next run: 8:00 AM tomorrow</div>
-        <div class="progress-bar"><div class="progress-fill" style="width:75%"></div></div>
-      </div>
-      <div class="pipeline-item">
-        <div class="pipeline-header"><span class="pipeline-name">Voice Agent</span><span class="pipeline-badge pb-live">Live</span></div>
-        <div class="pipeline-meta">ElevenLabs active</div>
-        <div class="progress-bar"><div class="progress-fill" style="width:80%"></div></div>
-      </div>
-      <div class="pipeline-item">
-        <div class="pipeline-header"><span class="pipeline-name">Email Sequences</span><span class="pipeline-badge pb-live">Live</span></div>
-        <div class="pipeline-meta">Apollo sequence active</div>
-        <div class="progress-bar"><div class="progress-fill" style="width:60%"></div></div>
-      </div>
-      <div class="pipeline-item">
-        <div class="pipeline-header"><span class="pipeline-name">Instagram Automation</span><span class="pipeline-badge pb-building">Building</span></div>
-        <div class="pipeline-meta">Boosend setup pending</div>
-        <div class="progress-bar"><div class="progress-fill" style="width:20%"></div></div>
-      </div>
+      <div class="pipeline-item"><div class="pipeline-header"><span class="pipeline-name">Lead Gen Pipeline</span><span class="pipeline-badge pb-live">Live</span></div><div class="pipeline-meta">Next run: 8:00 AM tomorrow</div><div class="progress-bar"><div class="progress-fill" style="width:75%"></div></div></div>
+      <div class="pipeline-item"><div class="pipeline-header"><span class="pipeline-name">Voice Agent</span><span class="pipeline-badge pb-live">Live</span></div><div class="pipeline-meta">ElevenLabs active</div><div class="progress-bar"><div class="progress-fill" style="width:80%"></div></div></div>
+      <div class="pipeline-item"><div class="pipeline-header"><span class="pipeline-name">Email Sequences</span><span class="pipeline-badge pb-live">Live</span></div><div class="pipeline-meta">Apollo sequence active</div><div class="progress-bar"><div class="progress-fill" style="width:60%"></div></div></div>
+      <div class="pipeline-item"><div class="pipeline-header"><span class="pipeline-name">Instagram Automation</span><span class="pipeline-badge pb-building">Building</span></div><div class="pipeline-meta">Boosend setup pending</div><div class="progress-bar"><div class="progress-fill" style="width:20%"></div></div></div>
     </div>
-
     <div class="sidebar-divider"></div>
-
     <div class="panel-section">
       <div class="panel-title"><span>Quick Build</span></div>
       <div class="build-grid">
@@ -363,19 +229,13 @@ body::after{content:'';position:fixed;inset:0;background:repeating-linear-gradie
         <button class="build-btn" onclick="quickBuild('reporting')">Daily Report</button>
       </div>
     </div>
-
     <div class="sidebar-divider"></div>
-
     <div class="panel-section">
       <div class="panel-title"><span>Activity Log</span></div>
-      <div class="activity-item">
-        <span class="activity-time" id="actTime1"></span>
-        <span class="activity-text">Command Center initialized</span>
-      </div>
+      <div class="activity-item"><span class="activity-time" id="actTime1"></span><span class="activity-text">Command Center initialized</span></div>
     </div>
   </div>
 
-  <!-- BOTTOM BAR -->
   <div class="bottom-bar">
     <div class="bb-item"><div class="bb-dot active"></div>Lead Gen — Active</div>
     <div class="bb-item"><div class="bb-dot active"></div>Voice Agent — Online</div>
@@ -387,17 +247,14 @@ body::after{content:'';position:fixed;inset:0;background:repeating-linear-gradie
 
 </div>
 
-<!-- SETTINGS MODAL -->
 <div class="modal" id="modal">
   <div class="modal-card">
     <h2 class="modal-title">Configure Command Center</h2>
-    <p class="modal-sub">Connect your APIs and n8n webhooks to activate the full army. Keys stored in session only.</p>
-    <div class="field"><label>Anthropic API Key</label><input type="password" id="anthropicKey" placeholder="sk-ant-..."/></div>
+    <p class="modal-sub">Connect your n8n webhooks to activate the full army. Saved locally in your browser.</p>
     <div class="field"><label>n8n Main Webhook URL</label><input type="text" id="n8nWebhook" placeholder="https://your-n8n.cloud/webhook/..."/></div>
     <div class="field"><label>n8n TTS Webhook URL (Voice)</label><input type="text" id="ttsWebhook" placeholder="https://your-n8n.cloud/webhook/tts"/></div>
     <div class="field"><label>n8n Lead Finder Webhook URL</label><input type="text" id="leadWebhook" placeholder="https://your-n8n.cloud/webhook/leads"/></div>
-    <div class="field"><label>OpenAI API Key (Transcription)</label><input type="password" id="openaiKey" placeholder="sk-..."/></div>
-    <div class="field"><label>ElevenLabs Voice ID (optional)</label><input type="text" id="voiceId" placeholder="Default: Rachel"/></div>
+    <div class="field"><label>OpenAI API Key (Voice Transcription)</label><input type="password" id="openaiKey" placeholder="sk-..."/></div>
     <div class="modal-actions">
       <button class="modal-btn" onclick="closeSettings()">Cancel</button>
       <button class="modal-btn primary" onclick="saveSettings()">Save Configuration</button>
@@ -406,53 +263,24 @@ body::after{content:'';position:fixed;inset:0;background:repeating-linear-gradie
 </div>
 
 <script>
-/* ── CONFIG ── */
 let cfg={
-  anthropic:'',
   n8nWebhook:'https://cjnf.app.n8n.cloud/webhook/e5d04b1b-b5f9-4c58-bbc4-f11f65192d4d',
   ttsWebhook:'https://cjnf.app.n8n.cloud/webhook/3259a034-cb48-4807-8592-9bd574262b1c',
   leadWebhook:'https://cjnf.app.n8n.cloud/webhook/b3dd4116-147e-45c3-ae6d-0ebae6bb59ce',
-  openai:'',
-  voiceId:'iz8JhHh9Ijk98wa7xHyb'
+  openai:''
 };
 try{const s=localStorage.getItem('cmdCenterCfg');if(s)cfg={...cfg,...JSON.parse(s)};}catch(e){}
 
-/* ── CLOCK ── */
 function updateClock(){const n=new Date();document.getElementById('clock').textContent=n.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false});}
 setInterval(updateClock,1000);updateClock();
-
-/* Set initial timestamps */
-const initT=now();
-document.getElementById('initTime').textContent=initT;
-document.getElementById('actTime1').textContent=initT;
-
-/* ── SETTINGS ── */
-function openSettings(){
-  document.getElementById('anthropicKey').value=cfg.anthropic;
-  document.getElementById('n8nWebhook').value=cfg.n8nWebhook;
-  document.getElementById('ttsWebhook').value=cfg.ttsWebhook;
-  document.getElementById('leadWebhook').value=cfg.leadWebhook;
-  document.getElementById('openaiKey').value=cfg.openai;
-  document.getElementById('voiceId').value=cfg.voiceId==='iz8JhHh9Ijk98wa7xHyb'?'':cfg.voiceId;
-  document.getElementById('modal').classList.add('open');
-}
-function closeSettings(){document.getElementById('modal').classList.remove('open');}
-function saveSettings(){
-  cfg.anthropic=document.getElementById('anthropicKey').value.trim();
-  cfg.n8nWebhook=document.getElementById('n8nWebhook').value.trim();
-  cfg.ttsWebhook=document.getElementById('ttsWebhook').value.trim();
-  cfg.leadWebhook=document.getElementById('leadWebhook').value.trim();
-  cfg.openai=document.getElementById('openaiKey').value.trim();
-  const vid=document.getElementById('voiceId').value.trim();
-  cfg.voiceId=vid||'iz8JhHh9Ijk98wa7xHyb';
-  try{localStorage.setItem('cmdCenterCfg',JSON.stringify(cfg));}catch(e){}
-  closeSettings();
-  addMessage('cmd','Command Center','Configuration saved. All webhooks connected.','System');
-}
-
-/* ── HELPERS ── */
-function selectAgent(el,name){document.querySelectorAll('.agent-item').forEach(i=>i.classList.remove('active'));el.classList.add('active');addMessage('cmd','Command Center',`${name} selected and standing by.`,'Agent');}
 function now(){return new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit',hour12:true});}
+document.getElementById('initTime').textContent=now();
+document.getElementById('actTime1').textContent=now();
+
+function openSettings(){document.getElementById('n8nWebhook').value=cfg.n8nWebhook;document.getElementById('ttsWebhook').value=cfg.ttsWebhook;document.getElementById('leadWebhook').value=cfg.leadWebhook;document.getElementById('openaiKey').value=cfg.openai;document.getElementById('modal').classList.add('open');}
+function closeSettings(){document.getElementById('modal').classList.remove('open');}
+function saveSettings(){cfg.n8nWebhook=document.getElementById('n8nWebhook').value.trim();cfg.ttsWebhook=document.getElementById('ttsWebhook').value.trim();cfg.leadWebhook=document.getElementById('leadWebhook').value.trim();cfg.openai=document.getElementById('openaiKey').value.trim();try{localStorage.setItem('cmdCenterCfg',JSON.stringify(cfg));}catch(e){}closeSettings();addMessage('cmd','Command Center','Configuration saved. All webhooks connected.','System');}
+function selectAgent(el,name){document.querySelectorAll('.agent-item').forEach(i=>i.classList.remove('active'));el.classList.add('active');addMessage('cmd','Command Center',`${name} selected and standing by.`,'Agent');}
 
 function addMessage(type,name,content,badge=''){
   const msgs=document.getElementById('messages');
@@ -462,76 +290,27 @@ function addMessage(type,name,content,badge=''){
   const at=type==='you'?'YOU':type==='agent'?'AG':'CC';
   const bc=type==='you'?'badge-you':type==='agent'?'badge-agent':'badge-cmd';
   div.innerHTML=`<div class="msg-avatar ${ac}">${at}</div><div class="msg-body"><div class="msg-header"><span class="msg-name">${name}</span>${badge?`<span class="msg-badge ${bc}">${badge}</span>`:''}<span class="msg-time">${now()}</span></div><div class="msg-text">${content}</div></div>`;
-  msgs.appendChild(div);
-  msgs.scrollTop=msgs.scrollHeight;
-}
-
-function addTyping(){
-  const msgs=document.getElementById('messages');
-  const div=document.createElement('div');
-  div.className='msg';div.id='typing-indicator';
-  div.innerHTML=`<div class="msg-avatar avatar-cmd">CC</div><div class="msg-body"><div class="msg-header"><span class="msg-name">Command Center</span></div><div class="msg-text"><div class="typing"><span></span><span></span><span></span></div></div></div>`;
   msgs.appendChild(div);msgs.scrollTop=msgs.scrollHeight;
 }
+function addTyping(){const msgs=document.getElementById('messages');const div=document.createElement('div');div.className='msg';div.id='typing-indicator';div.innerHTML=`<div class="msg-avatar avatar-cmd">CC</div><div class="msg-body"><div class="msg-header"><span class="msg-name">Command Center</span></div><div class="msg-text"><div class="typing"><span></span><span></span><span></span></div></div></div>`;msgs.appendChild(div);msgs.scrollTop=msgs.scrollHeight;}
 function removeTyping(){const t=document.getElementById('typing-indicator');if(t)t.remove();}
+function addActivity(text){const section=document.querySelector('.right-panel .panel-section:last-child');if(!section)return;const d=document.createElement('div');d.className='activity-item';d.innerHTML=`<span class="activity-time">${now()}</span><span class="activity-text">${text}</span>`;section.insertBefore(d,section.children[1]);}
 
-function addActivity(text){
-  const section=document.querySelector('.right-panel .panel-section:last-child');
-  if(!section)return;
-  const d=document.createElement('div');
-  d.className='activity-item';
-  d.innerHTML=`<span class="activity-time">${now()}</span><span class="activity-text">${text}</span>`;
-  section.insertBefore(d,section.children[1]);
-}
+function cleanForTTS(text){return text.replace(/<[^>]*>/g,'').replace(/\*\*/g,'').replace(/\*/g,'').replace(/#{1,6}\s?/g,'').replace(/=+/g,'').replace(/\[([^\]]+)\]/g,'$1').replace(/→/g,' to ').replace(/[-•]\s/g,'').replace(/`/g,'').replace(/Token budget:.*$/g,'').replace(/\n\n/g,'. ').replace(/\n/g,' ').replace(/\s{2,}/g,' ').trim();}
 
-/* ── CLEAN TEXT FOR TTS — strips ALL markdown ── */
-function cleanForTTS(text){
-  return text
-    .replace(/<[^>]*>/g,'')        // HTML tags
-    .replace(/\*\*/g,'')           // bold
-    .replace(/\*/g,'')             // italic
-    .replace(/#{1,6}\s?/g,'')      // headers
-    .replace(/=+/g,'')             // equals signs
-    .replace(/\[([^\]]+)\]/g,'$1') // [brackets] keep text
-    .replace(/→/g,' to ')          // arrow
-    .replace(/[-•]\s/g,'')         // bullets
-    .replace(/`/g,'')              // backticks
-    .replace(/\n\n/g,'. ')
-    .replace(/\n/g,' ')
-    .replace(/Token budget:.*$/g,'')
-    .replace(/\s{2,}/g,' ')
-    .trim();
-}
-
-/* ── TTS — fires once per session on load, then only on commands ── */
 async function speak(text){
   if(!cfg.ttsWebhook)return;
   try{
     const clean=cleanForTTS(text).substring(0,450);
-    if(!clean)return;
-    const res=await fetch(cfg.ttsWebhook,{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({text:clean})
-    });
+    if(!clean||clean.length<3)return;
+    const res=await fetch(cfg.ttsWebhook,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({text:clean})});
     if(!res.ok)return;
     const blob=await res.blob();
-    if(blob.size<1000)return; // empty/error audio
-    const audio=new Audio(URL.createObjectURL(blob));
-    audio.play().catch(()=>{});
+    if(blob.size<1000)return;
+    new Audio(URL.createObjectURL(blob)).play().catch(()=>{});
   }catch(e){console.log('TTS error:',e);}
 }
 
-/* ── SYSTEM PROMPT ── */
-const SYSTEM_PROMPT=`You are the Command Center, the brain of an autonomous AI agent army for Elevated Automations. You manage 11 specialized agents across 4 squads:
-BUILD SQUAD: Architect, Builder, Debugger
-OPS SQUAD: Lead Finder using SerpAPI and Apollo, Scorer 0-100, Copywriter using Claude API, CRM Agent using Google Sheets
-OUTREACH SQUAD: Email Agent using Apollo sequences, LinkedIn Agent, Voice Agent using ElevenLabs and Twilio, Scheduler
-SUPPORT SQUAD: Watchdog, Reporter, Optimizer, Ad Agent
-
-Respond in direct military ops style. Use DISPATCHING AgentName to task format. Under 150 words. The user is Jenale, she is the General. Never use markdown symbols like asterisks, equals signs, hashtags, or backticks in your responses. Write plain conversational text only.`;
-
-/* ── SEND COMMAND ── */
 async function sendCommand(){
   const input=document.getElementById('cmdInput');
   const cmd=input.value.trim();
@@ -545,16 +324,8 @@ async function processCommand(cmd){
   addTyping();
   document.getElementById('sendBtn').disabled=true;
   try{
-    if(!cfg.anthropic){
-      removeTyping();
-      addMessage('cmd','Command Center','No Anthropic API key. Click Configure to add your keys, General.','System');
-      document.getElementById('sendBtn').disabled=false;
-      return;
-    }
-
     let reply;
     const isLeadSearch=/find|search|leads?|prospect/i.test(cmd);
-
     if(isLeadSearch && cfg.leadWebhook){
       const nicheParts=cmd.match(/(?:in|for)\s+([a-zA-Z\s]+?)(?:\s+area|\s+leads|\s+ceo|\s+owner|$)/i);
       const titleParts=cmd.match(/\b(ceo|founder|owner|vp|head|cmo|coo|president|director)\b/i);
@@ -564,22 +335,15 @@ async function processCommand(cmd){
       if(!res.ok)throw new Error('Lead finder failed');
       reply=`DISPATCHING: Lead Finder to searchin ${niche} ${title} leads now. Leads are bein logged to your Google Sheets CRM. Check the sheet for results, General.`;
     } else {
-      const res=await fetch('https://api.anthropic.com/v1/messages',{
-        method:'POST',
-        headers:{'Content-Type':'application/json','x-api-key':cfg.anthropic,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
-        body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:300,system:SYSTEM_PROMPT,messages:[{role:'user',content:cmd}]})
-      });
-      if(!res.ok)throw new Error('Claude API error');
+      const res=await fetch(cfg.n8nWebhook,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({command:cmd})});
+      if(!res.ok)throw new Error('n8n webhook failed — check that Command Center Main workflow is active in n8n');
       const data=await res.json();
-      reply=data.content?.[0]?.text||'No response from Command Center.';
+      reply=data.reply||'Standing by, General.';
     }
-
     removeTyping();
-    const displayReply=reply.replace(/\n/g,'<br>');
-    addMessage('cmd','Command Center',displayReply,'Dispatch');
+    addMessage('cmd','Command Center',reply.replace(/\n/g,'<br>'),'Dispatch');
     speak(reply);
     addActivity(`Command: "${cmd.substring(0,40)}${cmd.length>40?'...':''}"`)
-
   }catch(err){
     removeTyping();
     addMessage('cmd','Command Center',`Connection error: ${err.message}`,'Error');
@@ -587,69 +351,27 @@ async function processCommand(cmd){
   document.getElementById('sendBtn').disabled=false;
 }
 
-/* ── VOICE RECORDING ── */
 let mediaRecorder,audioChunks=[],isRecording=false,stream;
 async function toggleVoice(){
   if(isRecording){stopVoice();return;}
   try{
     stream=await navigator.mediaDevices.getUserMedia({audio:true});
-    mediaRecorder=new MediaRecorder(stream);
-    audioChunks=[];
+    mediaRecorder=new MediaRecorder(stream);audioChunks=[];
     mediaRecorder.ondataavailable=e=>audioChunks.push(e.data);
-    mediaRecorder.onstop=handleVoiceEnd;
-    mediaRecorder.start();
-    isRecording=true;
+    mediaRecorder.onstop=handleVoiceEnd;mediaRecorder.start();isRecording=true;
     document.getElementById('micBtn').classList.add('recording');
     document.getElementById('voiceTopBtn').classList.add('recording');
     addMessage('cmd','Command Center','Listenin... click mic again to send.','Voice');
   }catch(err){addMessage('cmd','Command Center','Mic access denied.','Error');}
 }
-function stopVoice(){
-  if(!isRecording)return;
-  isRecording=false;
-  document.getElementById('micBtn').classList.remove('recording');
-  document.getElementById('voiceTopBtn').classList.remove('recording');
-  if(mediaRecorder&&mediaRecorder.state!=='inactive')mediaRecorder.stop();
-  if(stream)stream.getTracks().forEach(t=>t.stop());
-}
-async function handleVoiceEnd(){
-  if(!cfg.openai){addMessage('cmd','Command Center','No OpenAI key for transcription.','Error');return;}
-  addTyping();
-  try{
-    const blob=new Blob(audioChunks,{type:'audio/webm'});
-    const form=new FormData();
-    form.append('file',blob,'audio.webm');
-    form.append('model','whisper-1');
-    const res=await fetch('https://api.openai.com/v1/audio/transcriptions',{method:'POST',headers:{'Authorization':`Bearer ${cfg.openai}`},body:form});
-    const data=await res.json();
-    removeTyping();
-    if(data.text){document.getElementById('cmdInput').value=data.text;await sendCommand();}
-  }catch(err){removeTyping();addMessage('cmd','Command Center','Transcription failed: '+err.message,'Error');}
-}
+function stopVoice(){if(!isRecording)return;isRecording=false;document.getElementById('micBtn').classList.remove('recording');document.getElementById('voiceTopBtn').classList.remove('recording');if(mediaRecorder&&mediaRecorder.state!=='inactive')mediaRecorder.stop();if(stream)stream.getTracks().forEach(t=>t.stop());}
+async function handleVoiceEnd(){if(!cfg.openai){addMessage('cmd','Command Center','No OpenAI key for transcription.','Error');return;}addTyping();try{const blob=new Blob(audioChunks,{type:'audio/webm'});const form=new FormData();form.append('file',blob,'audio.webm');form.append('model','whisper-1');const res=await fetch('https://api.openai.com/v1/audio/transcriptions',{method:'POST',headers:{'Authorization':`Bearer ${cfg.openai}`},body:form});const data=await res.json();removeTyping();if(data.text){document.getElementById('cmdInput').value=data.text;await sendCommand();}}catch(err){removeTyping();addMessage('cmd','Command Center','Transcription failed: '+err.message,'Error');}}
 
-/* ── UTILS ── */
 function handleKey(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendCommand();}}
 function setCmd(text){const i=document.getElementById('cmdInput');i.value=text;i.focus();}
 function autoResize(el){el.style.height='auto';el.style.height=Math.min(el.scrollHeight,120)+'px';}
-function quickBuild(type){
-  const cmds={
-    email:'Build an email sequence agent using Apollo',
-    linkedin:'Build a LinkedIn automation agent using Phantombuster',
-    calling:'Build an ElevenLabs calling agent for HOT leads',
-    reporting:'Build a daily reporter agent that sends summaries at 7am'
-  };
-  setCmd(cmds[type]);
-  document.getElementById('cmdInput').focus();
-}
-
-/* ── AUDIO UNLOCK ── */
-document.addEventListener('click',function unlock(){
-  new(window.AudioContext||window.webkitAudioContext)().resume();
-  document.removeEventListener('click',unlock);
-},{once:true});
-
-/* ── OPEN SETTINGS IF NO KEY ── */
-if(!cfg.anthropic)setTimeout(openSettings,600);
+function quickBuild(type){const cmds={email:'Build an email sequence agent using Apollo',linkedin:'Build a LinkedIn automation agent using Phantombuster',calling:'Build an ElevenLabs calling agent for HOT leads',reporting:'Build a daily reporter agent that sends summaries at 7am'};setCmd(cmds[type]);document.getElementById('cmdInput').focus();}
+document.addEventListener('click',function unlock(){new(window.AudioContext||window.webkitAudioContext)().resume();document.removeEventListener('click',unlock);},{once:true});
 </script>
 </body>
 </html>
