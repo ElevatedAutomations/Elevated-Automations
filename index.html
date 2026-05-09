@@ -268,9 +268,19 @@ footer{padding:36px 48px;border-top:1px solid var(--border);display:flex;align-i
   .plan-badge{font-size:6px;padding:3px 8px;}
 
   /* SIGNUP */
-  .su-layout{grid-template-columns:1fr;gap:36px;}
-  .su-form{padding:24px 18px;}
+  #signup{padding:64px 20px;}
+  .su-layout{
+    display:flex !important;
+    flex-direction:column !important;
+    gap:36px;
+    width:100%;
+  }
+  .su-layout > *{width:100% !important;max-width:100% !important;}
+  .su-form{padding:24px 18px;width:100%;box-sizing:border-box;}
   .su-feats{gap:10px;}
+  .sec-title{font-size:32px !important;}
+  .form-inp,.form-sel{width:100%;font-size:14px;}
+  .form-sub{font-size:10px;letter-spacing:2px;}
 
   /* FOOTER */
   footer{
